@@ -24,6 +24,7 @@ class WebsiteSignals:
     has_careers: bool = False
     has_multiple_locations: bool = False
     has_inquiry_language: bool = False
+    public_emails: list[str] = field(default_factory=list)
     errors: list[str] = field(default_factory=list)
 
 
@@ -46,6 +47,23 @@ def inspect_website(url: str, timeout: int, user_agent: str) -> WebsiteSignals:
         return WebsiteSignals(errors=[f"Website unavailable: {type(exc).__name__}"])
 
     lower = raw.lower()
+    email_candidates = {
+        address.lower().strip(".,;:()[]<>")
+        for address in re.findall(
+            r"(?<![\w.+-])[\w.+-]+@[\w.-]+\.[a-zA-Z]{2,}(?![\w.-])", raw
+        )
+    }
+    public_emails = sorted(
+        address
+        for address in email_candidates
+        if not any(
+            blocked in address
+            for blocked in (
+                "example.com", "email.com", "domain.com", "sentry.io",
+                "wixpress.com", "wordpress.org", "noreply", "no-reply",
+            )
+        )
+    )[:5]
     visible = re.sub(r"<script\b[^>]*>.*?</script>", " ", lower, flags=re.S)
     visible = re.sub(r"<style\b[^>]*>.*?</style>", " ", visible, flags=re.S)
     visible = re.sub(r"<[^>]+>", " ", visible)
@@ -90,4 +108,5 @@ def inspect_website(url: str, timeout: int, user_agent: str) -> WebsiteSignals:
                 "schedule a consultation", "call today", "contact us today",
             ]
         ),
+        public_emails=public_emails,
     )
