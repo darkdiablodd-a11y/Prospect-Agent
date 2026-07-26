@@ -55,6 +55,7 @@ categories:
 minimum_score: 55
 minimum_decision_access: 13
 maximum_results: 75
+maximum_website_inspections: 500
 results_per_search: 12
 website_timeout_seconds: 8
 user_agent: QueenCityProspectAgent/1.0 (+public-business-research)
