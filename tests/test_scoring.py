@@ -41,6 +41,21 @@ class ScoringTests(unittest.TestCase):
         self.assertFalse(result.reachable)
         self.assertTrue(result.errors)
 
+    @patch("prospect_agent.websites.urllib.request.urlopen")
+    def test_public_business_email_is_discovered(self, mock_urlopen):
+        from unittest.mock import MagicMock
+
+        response = MagicMock()
+        response.read.return_value = (
+            b'<a href="mailto:hello@localbusiness.com">Email us</a>'
+            b'<script>dsn="errors@sentry.io"</script>'
+        )
+        response.geturl.return_value = "https://localbusiness.com/contact"
+        response.__enter__.return_value = response
+        mock_urlopen.return_value = response
+        result = inspect_website("https://localbusiness.com", 1, "test-agent")
+        self.assertEqual(result.public_emails, ["hello@localbusiness.com"])
+
 
 if __name__ == "__main__":
     unittest.main()
