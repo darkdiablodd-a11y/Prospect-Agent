@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import http.client
 import re
 import urllib.error
 import urllib.parse
@@ -34,7 +35,14 @@ def inspect_website(url: str, timeout: int, user_agent: str) -> WebsiteSignals:
         with urllib.request.urlopen(request, timeout=timeout) as response:
             raw = response.read(750_000).decode("utf-8", errors="ignore")
             final_url = response.geturl()
-    except (urllib.error.URLError, ValueError, TimeoutError) as exc:
+    except (
+        urllib.error.URLError,
+        ValueError,
+        TimeoutError,
+        ConnectionError,
+        OSError,
+        http.client.HTTPException,
+    ) as exc:
         return WebsiteSignals(errors=[f"Website unavailable: {type(exc).__name__}"])
 
     lower = raw.lower()
