@@ -1,0 +1,60 @@
+agency_name: Prospect
+offer: Agentic AI systems for inquiry response, lead qualification, appointment scheduling, follow-up, and customer reactivation
+outcomes: Faster response times, fewer missed inquiries, more booked appointments, and less repetitive administrative work
+target_employee_min: 10
+target_employee_max: 100
+
+locations:
+  - Charlotte, NC
+  - Matthews, NC
+  - Huntersville, NC
+  - Cornelius, NC
+  - Davidson, NC
+  - Mint Hill, NC
+  - Pineville, NC
+  - Fort Mill, SC
+  - Rock Hill, SC
+  - Belmont, NC
+  - Gastonia, NC
+  - Concord, NC
+
+categories:
+  - dentist
+  - med spa
+  - chiropractor
+  - physical therapy clinic
+  - mental health clinic
+  - home health care service
+  - senior home care service
+  - HVAC contractor
+  - plumber
+  - electrician
+  - roofing contractor
+  - landscaping company
+  - remodeling contractor
+  - pest control service
+  - water damage restoration service
+  - moving company
+  - property management company
+  - commercial cleaning service
+  - family law firm
+  - estate planning attorney
+  - personal injury law firm
+  - accounting firm
+  - insurance agency
+  - veterinarian
+  - auto repair shop
+  - collision repair shop
+  - boutique fitness studio
+  - event venue
+  - catering company
+  - private school
+  - daycare center
+  - staffing agency
+
+minimum_score: 55
+minimum_decision_access: 13
+maximum_results: 75
+results_per_search: 12
+website_timeout_seconds: 8
+user_agent: QueenCityProspectAgent/1.0 (+public-business-research)
