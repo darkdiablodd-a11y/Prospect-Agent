@@ -1,6 +1,9 @@
 name: Charlotte Prospect Agent
 
 on:
+  # One-time push trigger used to launch the initial run.
+  push:
+    branches: [main]
   workflow_dispatch:
   schedule:
     # Twice monthly: 1st and 15th at 13:00 UTC.
