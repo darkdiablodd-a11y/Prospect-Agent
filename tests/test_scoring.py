@@ -1,8 +1,10 @@
 import unittest
+from unittest.mock import patch
 
 from prospect_agent.places import Place
 from prospect_agent.scoring import score
 from prospect_agent.websites import WebsiteSignals
+from prospect_agent.websites import inspect_website
 
 
 class ScoringTests(unittest.TestCase):
@@ -29,6 +31,15 @@ class ScoringTests(unittest.TestCase):
         result = score(place, WebsiteSignals(), "local SEO")
         self.assertEqual(result.agency_need, 25)
         self.assertEqual(result.decision_access, 0)
+
+    @patch("prospect_agent.websites.urllib.request.urlopen")
+    def test_disconnected_website_is_recorded_not_fatal(self, mock_urlopen):
+        import http.client
+
+        mock_urlopen.side_effect = http.client.RemoteDisconnected("closed")
+        result = inspect_website("https://example.com", 1, "test-agent")
+        self.assertFalse(result.reachable)
+        self.assertTrue(result.errors)
 
 
 if __name__ == "__main__":
