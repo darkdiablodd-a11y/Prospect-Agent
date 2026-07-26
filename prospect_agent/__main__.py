@@ -35,9 +35,21 @@ def main() -> int:
         for place in client.search(category, location, config.results_per_search):
             unique.setdefault(place.place_id, place)
 
+    inspection_queue = sorted(
+        unique.values(),
+        key=lambda place: (
+            bool(place.phone),
+            bool(place.website),
+            place.business_status == "OPERATIONAL",
+            min(place.review_count, 500),
+            place.rating,
+        ),
+        reverse=True,
+    )[: config.maximum_website_inspections]
+
     ranked = []
-    for number, place in enumerate(unique.values(), 1):
-        print(f"Inspecting website {number}/{len(unique)}: {place.name}")
+    for number, place in enumerate(inspection_queue, 1):
+        print(f"Inspecting website {number}/{len(inspection_queue)}: {place.name}")
         signals = inspect_website(
             place.website, config.website_timeout_seconds, config.user_agent
         )
