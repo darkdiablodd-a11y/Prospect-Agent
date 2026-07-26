@@ -16,6 +16,7 @@ class Config:
     minimum_score: int = 55
     minimum_decision_access: int = 13
     maximum_results: int = 75
+    maximum_website_inspections: int = 500
     results_per_search: int = 12
     website_timeout_seconds: int = 8
     user_agent: str = "QueenCityProspectAgent/1.0"
