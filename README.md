@@ -1,6 +1,6 @@
-# Queen City Prospect Agent
+# Prospect by Nightshift Labs
 
-A GitHub Actions-ready prospecting agent for **Prospect**, targeting inquiry-heavy
+A GitHub Actions-ready prospecting agent from **Nightshift Labs**, targeting inquiry-heavy
 local businesses in Charlotte, North Carolina and surrounding communities for
 Agentic AI automation.
 
@@ -13,10 +13,13 @@ It:
   appointments where AI can improve intake and follow-up;
 - excludes chains and businesses without a usable public contact path;
 - writes a ranked CSV, JSON, and human-readable briefing;
+- creates an approval-first outreach queue using public business emails found
+  on the companies' own websites;
 - can run manually or every Monday in GitHub Actions.
 
-The tool does **not** scrape personal emails, bypass access controls, or send
-unsolicited messages. It records public business contact paths and recommends
+The tool does **not** guess personal emails, bypass access controls, or send
+messages. Sending stays locked until Nightshift Labs deliberately adds and
+configures a provider. It records public business contact paths and recommends
 the likely role to ask for (owner, practice manager, general manager, etc.).
 
 ## Quick start
@@ -37,6 +40,7 @@ Results appear in `output/`:
 - `prospects.csv` — CRM-friendly ranked list
 - `prospects.json` — complete structured output
 - `briefing.md` — the best leads and suggested meeting angles
+- `outreach_queue.csv` — email research and approval status; never an automatic send list
 
 No third-party Python packages are required.
 
