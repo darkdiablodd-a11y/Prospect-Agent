@@ -65,6 +65,8 @@ dependency-free. Change:
 - `minimum_score`, `minimum_decision_access`, and `maximum_results` to control
   the shortlist. The accessibility floor prevents a high-need business with no
   practical public contact route from crowding out meeting-ready leads.
+- `maximum_website_inspections` limits slower website analysis to the strongest
+  candidates identified from the complete Places search.
 
 Search volume affects Google Places usage and cost. Start with a few categories
 and locations, review the output, and expand deliberately.
