@@ -15,6 +15,8 @@ It:
 - writes a ranked CSV, JSON, and human-readable briefing;
 - creates an approval-first outreach queue using public business emails found
   on the companies' own websites;
+- maintains a researched Fiverr caller shortlist and a controlled calling-pilot
+  playbook without purchasing services or sharing prospect data automatically;
 - can run manually or every Monday in GitHub Actions.
 
 The tool does **not** guess personal emails, bypass access controls, or send
