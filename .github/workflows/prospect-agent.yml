@@ -1,0 +1,38 @@
+name: Charlotte Prospect Agent
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Twice monthly: 1st and 15th at 13:00 UTC.
+    - cron: "0 13 1,15 * *"
+
+permissions:
+  contents: read
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Find and rank prospects
+        env:
+          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+        run: python -m prospect_agent --config config/agency.yaml
+
+      - name: Upload prospect reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: charlotte-prospects-${{ github.run_number }}
+          path: output/
+          retention-days: 30
