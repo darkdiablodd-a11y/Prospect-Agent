@@ -7,6 +7,7 @@ from pathlib import Path
 @dataclass(frozen=True)
 class Config:
     agency_name: str
+    agent_name: str
     offer: str
     outcomes: str
     locations: list[str]
@@ -20,6 +21,7 @@ class Config:
     results_per_search: int = 12
     website_timeout_seconds: int = 8
     user_agent: str = "QueenCityProspectAgent/1.0"
+    outreach_enabled: str = "false"
 
 
 def load_config(path: str | Path) -> Config:
